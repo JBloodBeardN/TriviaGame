@@ -42,6 +42,7 @@ var answersRight = 0;
 var timer = 30;
 var intervalId;
 
+var correctAnswer;
 
 //make the time function which calls timesUp() on timer=0
 //done
@@ -61,6 +62,7 @@ function decrementTimer(){
 //done
 function timesUp(){
     clearInterval(intervalId);
+    correctAnswer=questionSet[nextQuestionCounter].answer;
     console.log("timesupRan");
     setTimeout(function(){
         updateStatus("<p>Time's Up</p>");
@@ -182,12 +184,12 @@ function endState(){
 $(document).ready(function(){
 
    $('#parentDiv').on("click", ".radio", function(){
-    console.log("clickWorked");
-    var chosenAnswer = this.value;
-    var correctAnswer = questionSet[this.dataset.index].answer;
-    console.log(chosenAnswer);
-    console.log(correctAnswer);
-    validateAnswer(chosenAnswer, correctAnswer);
+        console.log("clickWorked");
+        var chosenAnswer = this.value;
+        correctAnswer = questionSet[this.dataset.index].answer;
+        console.log(chosenAnswer);
+        console.log(correctAnswer);
+        validateAnswer(chosenAnswer, correctAnswer);
    });  
 
 
