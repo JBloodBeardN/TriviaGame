@@ -27,9 +27,9 @@ var questionSet = [
         {value: "african"},
         {value: "european"},
         {value: "coconut"},
-        {value: "oh, I don't know that..AHHHH"}
+        {value: "oh, I dont know that..AHHHH"}
         ],
-        answer: "oh, I don't know that..AHHHH"
+        answer: "oh, I dont know that..AHHHH"
     }
     
 ]
@@ -71,6 +71,7 @@ function timesUp(){
     document.getElementById('timeRemaining').innerHTML = "Your time remaining: "+ Math.floor(timer/60)+":"+ Math.floor(timer%60);
 };
 function updateStatus(string){
+    $('#parentDiv').empty();
     $('#parentDiv').append(string);
 }
 
@@ -89,9 +90,8 @@ function validateAnswer(chosenAnswer, correctAnswer){
 //done
 function wrongAnswer(correctAnswer){
     console.log("wrongAnswer ran");
-    setTimeout(function(){
-        $('#parentDiv').append($("<p>You answered incorrectly.\nThe correct answer was:"+correctAnswer))+"</p>";
-    },2000);
+    $('#parentDiv').empty();
+    $('#parentDiv').append("<p>You answered incorrectly.\nThe correct answer was:"+correctAnswer+"</p>");
     setTimeout(function(){nextQuestion()},2000);
 };
 
@@ -99,9 +99,8 @@ function wrongAnswer(correctAnswer){
 //done
 function rightAnswer(){
     console.log("rightAnswer ran");
-    setTimeout(function(){
-        $('#parentDiv').append($("<p>You answered correctly!</p>"));
-    },2000);
+    $('#parentDiv').empty();
+    $('#parentDiv').append("<p>You answered correctly!</p>");
     answersRight++;
     setTimeout(function(){nextQuestion()},2000);
 }
@@ -135,7 +134,7 @@ function nextQuestion(){
         // <label for="firstAnswer"> 
         //     <input type="radio" id="firstAnswer" class="firstQuestion" name="firstQuestion" data-index=1 value=true>
         //     True</label>
-        var Radio1 = $("<label for='question1'><input id='question1' style='visibility: hidden' type='radio' name='question"+nextQuestionCounter+"' class='radio' data-index='"+nextQuestionCounter+"' value='"+question1+"'>"+question1+"</input></label><br/>");
+        var Radio1 = $("<br><label for='question1'><input id='question1' style='visibility: hidden' type='radio' name='question"+nextQuestionCounter+"' class='radio' data-index='"+nextQuestionCounter+"' value='"+question1+"'>"+question1+"</input></label><br/>");
         var Radio2 = $("<label for='question2'><input id='question2' style='visibility: hidden' type='radio' name='question"+nextQuestionCounter+"' class='radio' data-index='"+nextQuestionCounter+"'value='"+question2+"'>"+question2+"</input></label><br/>");
         var Radio3 = $("<label for='question3'><input id='question3' style='visibility: hidden' type='radio' name='question"+nextQuestionCounter+"' class='radio' data-index='"+nextQuestionCounter+"'value='"+question3+"'>"+question3+"</input></label><br/>");
         var Radio4 = $("<label for='question4'><input id='question4' style='visibility: hidden' type='radio' name='question"+nextQuestionCounter+"' class='radio' data-index='"+nextQuestionCounter+"'value='"+question4+"'>"+question4+"</input></label><br/>");
@@ -192,6 +191,7 @@ function nextQuestion(){
 //endState() for displaying correct number of answers answersRight
 function endState(){
     console.log("endState Ran");
+        $('#parentDiv').empty();
         $('#parentDiv').append($("<p>You've completed the Trivia.\nYou correctly answered:"+answersRight))+"</p>";
 }
 
