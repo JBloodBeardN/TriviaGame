@@ -39,10 +39,10 @@ var answersRight = 0;
 
 //make a counter for the individual question timer
 //done
-var timer = 30;
+var timer;
 var intervalId;
 
-var correctAnswer;
+var currentQuestion;
 
 //make the time function which calls timesUp() on timer=0
 //done
@@ -62,17 +62,17 @@ function decrementTimer(){
 //done
 function timesUp(){
     clearInterval(intervalId);
-    correctAnswer=questionSet[nextQuestionCounter].answer;
-    console.log("timesupRan");
-    setTimeout(function(){
-        updateStatus("<p>Time's Up</p>");
-        wrongAnswer();
+    console.log("timesUp ran")
+    updateStatus("<p>Time's Up</p>");
+    setTimeout(function(){   
+        wrongAnswer(currentQuestion);
     },2000);
     
     timer = 30;
     document.getElementById('timeRemaining').innerHTML = "Your time remaining: "+ Math.floor(timer/60)+":"+ Math.floor(timer%60);
 };
 function updateStatus(string){
+    console.log("update status ran")
     $('#parentDiv').empty();
     $('#parentDiv').append(string);
 }
@@ -80,7 +80,6 @@ function updateStatus(string){
 //make a validateAnswer(chosenAnswer, correctAnswer);
 //done
 function validateAnswer(chosenAnswer, correctAnswer){
-    console.log("validateAnswer ran")
     if(chosenAnswer === correctAnswer){
         rightAnswer();
     } else {
@@ -91,7 +90,6 @@ function validateAnswer(chosenAnswer, correctAnswer){
 //make a wrongAnswer() which displays the correct answer then calls nextQuestion()
 //done
 function wrongAnswer(correctAnswer){
-    console.log("wrongAnswer ran");
     $('#parentDiv').empty();
     $('#parentDiv').append("<p>You answered incorrectly.\nThe correct answer was:"+correctAnswer+"</p>");
     setTimeout(function(){nextQuestion()},2000);
@@ -100,7 +98,6 @@ function wrongAnswer(correctAnswer){
 //make a rightAnswer() which displays success message and iterates answersRight counter then calls nextQuestion()
 //done
 function rightAnswer(){
-    console.log("rightAnswer ran");
     $('#parentDiv').empty();
     $('#parentDiv').append("<p>You answered correctly!</p>");
     answersRight++;
@@ -110,7 +107,6 @@ var nextQuestionCounter = 0;
 
 //make a function for nextQuestion()
 function nextQuestion(){
-    console.log("nextQuestion ran");
     //reset the question timer (clear and recall interval)
     $('#parentDiv').empty();
     clearInterval(intervalId);
@@ -155,6 +151,7 @@ function nextQuestion(){
         endState();
 
     }
+    currentQuestion = questionSet[nextQuestionCounter].answer;
     nextQuestionCounter++;
 };
 
@@ -172,7 +169,6 @@ function reset(){
 
 //endState() for displaying correct number of answers answersRight
 function endState(){
-    console.log("endState Ran");
         $('#parentDiv').empty();
         $('#parentDiv').append("<p>You've completed the Trivia.\nYou correctly answered:"+answersRight+"</p><br>");
         $('#parentDiv').append("<button onclick='reset()'>Reset</button>");
@@ -184,11 +180,8 @@ function endState(){
 $(document).ready(function(){
 
    $('#parentDiv').on("click", ".radio", function(){
-        console.log("clickWorked");
         var chosenAnswer = this.value;
-        correctAnswer = questionSet[this.dataset.index].answer;
-        console.log(chosenAnswer);
-        console.log(correctAnswer);
+        var correctAnswer = questionSet[this.dataset.index].answer;
         validateAnswer(chosenAnswer, correctAnswer);
    });  
 
