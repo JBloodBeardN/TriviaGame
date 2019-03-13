@@ -62,7 +62,6 @@ function decrementTimer(){
 //done
 function timesUp(){
     clearInterval(intervalId);
-    console.log("timesUp ran")
     updateStatus("<p>Time's Up</p>");
     setTimeout(function(){   
         wrongAnswer(currentQuestion);
@@ -72,7 +71,6 @@ function timesUp(){
     document.getElementById('timeRemaining').innerHTML = "Your time remaining: "+ Math.floor(timer/60)+":"+ Math.floor(timer%60);
 };
 function updateStatus(string){
-    console.log("update status ran")
     $('#parentDiv').empty();
     $('#parentDiv').append(string);
 }
@@ -144,15 +142,15 @@ function nextQuestion(){
         newForm.append(newLabel);
 
         $('#parentDiv').append(newForm);
-
+        currentQuestion = questionSet[nextQuestionCounter].answer;
+        nextQuestionCounter++;
 
     } else {
         //have an exit for no more questions that goes to score and adds a reset button
         endState();
 
     }
-    currentQuestion = questionSet[nextQuestionCounter].answer;
-    nextQuestionCounter++;
+    
 };
 
 
