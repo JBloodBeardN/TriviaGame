@@ -147,13 +147,6 @@ function nextQuestion(){
 
         $('#parentDiv').append(newForm);
 
-        //   a.addClass("movie");
-        //   // Adding a data-attribute
-        //   a.attr("data-name", movies[i]);
-        //   // Providing the initial button text
-        //   a.text(movies[i]);
-        //   // Adding the button to the buttons-view div
-        //   $("#buttons-view").append(a);
 
     } else {
         //have an exit for no more questions that goes to score and adds a reset button
@@ -162,37 +155,26 @@ function nextQuestion(){
     }
     nextQuestionCounter++;
 };
-    // this is an example of the Form
-    //         <label>First Question?</label>
-            // <label for="firstAnswer"> 
-            // <input type="radio" id="firstAnswer" class="firstQuestion" name="firstQuestion" data-index=1 value=true>
-            // True</label>
-
-    //         <label for="secondAnswer">
-    //         <input type="radio" id="secondAnswer" class="firstQuestion" name="firstQuestion" data-index=1 value=false>
-    //         False</label>
-
-    //         <label for="thirdAnswer">
-    //         <input type="radio" id="thirdAnswer" class="firstQuestion" name="firstQuestion" data-index=1 value=null>
-    //         Null</label>
-
-    //         <label for="fourthAnswer">
-    //         <input type="radio" id="fourthAnswer" class="firstQuestion" name="firstQuestion" data-index=1 value="undefined">
-    //         Undefined</label>
 
 
 
 //make a reset function
 //dont forget: counter for score, counter for question, intervalId
-
-// clearInterval(intervalId);
-// intervalId = setInterval(decrementTimer, 1000);
+function reset(){
+    timer=30;
+    nextQuestionCounter=0;
+    clearInterval(intervalId);
+    answersRight=0;
+    nextQuestion();
+}
 
 //endState() for displaying correct number of answers answersRight
 function endState(){
     console.log("endState Ran");
         $('#parentDiv').empty();
-        $('#parentDiv').append($("<p>You've completed the Trivia.\nYou correctly answered:"+answersRight))+"</p>";
+        $('#parentDiv').append("<p>You've completed the Trivia.\nYou correctly answered:"+answersRight+"</p><br>");
+        $('#parentDiv').append("<button onclick='reset()'>Reset</button>");
+
 }
 
 //only do stuff after the document is ready
